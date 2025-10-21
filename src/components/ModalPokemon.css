@@ -1,0 +1,229 @@
+/* Modal Pokemon Styles */
+.modal-pokemon-overlay {
+  background: rgba(0, 0, 0, 0.8) !important;
+  backdrop-filter: blur(8px);
+}
+
+.modal-pokemon-paper {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.95) 0%,
+    rgba(255, 107, 53, 0.1) 50%,
+    rgba(255, 255, 255, 0.95) 100%
+  ) !important;
+  border-radius: 16px !important;
+  border: 2px solid rgba(255, 107, 53, 0.3) !important;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3) !important;
+  max-width: 1000px !important;
+  margin: 20px !important;
+  max-height: 90vh !important;
+  overflow-y: auto !important;
+}
+
+.header {
+  background-color: #d7d7d7 !important;
+  color: #333 !important;
+  padding: 16px 24px !important;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.1) !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+}
+
+.header h2 {
+  font-weight: bold !important;
+  color: #333 !important;
+  margin: 0 !important;
+  font-size: 1.8rem !important;
+}
+
+.body {
+  background-image: url('/pokemon_arena__bg_practice__by_dt_fox_d53bfm7-pre.png') !important;
+  background-repeat: no-repeat !important;
+  background-size: cover !important;
+  padding: 24px !important;
+  min-height: 500px !important;
+}
+
+.poke-comics {
+  font-family: "Press Start 2P", system-ui !important;
+  font-weight: 400 !important;
+  font-style: normal !important;
+  font-size: 1rem !important;
+  background: rgba(255, 255, 255, 0.9) !important;
+  padding: 12px !important;
+  border-radius: 8px !important;
+  border: 2px solid #333 !important;
+  text-align: center !important;
+}
+
+/* Type icons styling */
+.type-icon {
+  width: 24px !important;
+  height: 24px !important;
+  object-fit: contain;
+}
+
+.type-chip {
+  background-color: rgba(255, 107, 53, 0.1) !important;
+  border-color: #ff6b35 !important;
+  color: #ff6b35 !important;
+  font-weight: bold !important;
+  text-transform: uppercase !important;
+  border-radius: 16px !important;
+  margin: 0 4px !important;
+}
+
+/* Pokemon image styling */
+.pokemon-modal-image {
+  max-width: 360px !important;
+  width: 100% !important;
+  height: auto !important;
+  border-radius: 12px !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15) !important;
+  transition: transform 0.3s ease !important;
+}
+
+.pokemon-modal-image:hover {
+  transform: scale(1.05);
+}
+
+/* Stats styling */
+.stat-row {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  padding: 8px 12px !important;
+  margin: 4px 0 !important;
+  background: rgba(255, 107, 53, 0.05) !important;
+  border-radius: 8px !important;
+  border: 1px solid rgba(255, 107, 53, 0.1) !important;
+}
+
+.stat-name {
+  text-transform: capitalize !important;
+  font-weight: 500 !important;
+  color: #333 !important;
+}
+
+.stat-value {
+  font-weight: bold !important;
+  color: #ff6b35 !important;
+  min-width: 50px !important;
+  text-align: right !important;
+}
+
+/* Characteristics box */
+.poke-characteristics {
+  background: linear-gradient(135deg, #f8f9fa, #e9ecef) !important;
+  padding: 16px !important;
+  border-radius: 12px !important;
+  width: 100% !important;
+  text-align: center !important;
+  border: 1px solid #dee2e6 !important;
+  font-style: italic !important;
+  color: #6c757d !important;
+  font-size: 1.1rem !important;
+  margin-top: 16px !important;
+}
+
+/* Modal layout */
+.modal-content {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 16px !important;
+}
+
+.modal-image-section {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: 16px !important;
+}
+
+.modal-stats-section {
+  background: rgba(255, 255, 255, 0.8) !important;
+  padding: 20px !important;
+  border-radius: 12px !important;
+  border: 1px solid rgba(255, 107, 53, 0.2) !important;
+  height: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: flex-start !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .modal-pokemon-paper {
+    margin: 10px !important;
+    max-width: calc(100% - 20px) !important;
+    max-height: 95vh !important;
+  }
+
+  .header {
+    padding: 12px 16px !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+    text-align: center !important;
+  }
+
+  .header h2 {
+    font-size: 1.5rem !important;
+  }
+
+  .body {
+    padding: 16px !important;
+    min-height: 400px !important;
+  }
+
+  .pokemon-modal-image {
+    max-width: 280px !important;
+  }
+
+  .modal-content {
+    gap: 12px !important;
+  }
+
+  .type-chip {
+    font-size: 0.7rem !important;
+    padding: 4px 8px !important;
+    margin: 2px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .header {
+    padding: 8px 12px !important;
+  }
+
+  .header h2 {
+    font-size: 1.3rem !important;
+  }
+
+  .body {
+    padding: 12px !important;
+    min-height: 350px !important;
+  }
+
+  .pokemon-modal-image {
+    max-width: 240px !important;
+  }
+
+  .modal-stats-section {
+    padding: 16px !important;
+  }
+
+  .poke-comics {
+    font-size: 0.8rem !important;
+    padding: 8px !important;
+  }
+}
+
+@media screen and (max-width: 820px) {
+  .body {
+    background-image: url('/pokemon_arena_mobile.jpg') !important;
+    background-repeat: no-repeat !important;
+    background-position: left !important;
+    background-size: cover !important;
+  }
+}
