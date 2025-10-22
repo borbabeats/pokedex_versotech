@@ -38,11 +38,19 @@ a {
 /* Background personalizado com pokeballs */
 .bg-index {
   background:
-    linear-gradient(135deg, rgba(255, 107, 53, 0.1) 0%, rgba(255, 255, 255, 0.9) 50%, rgba(255, 107, 53, 0.1) 100%),
-    url('/pokeball2.png');
-  background-position: 0 0, center;
+    linear-gradient(
+      135deg,
+      rgba(255, 107, 53, 0.1) 0%,
+      rgba(255, 255, 255, 0.9) 50%,
+      rgba(255, 107, 53, 0.1) 100%
+    ), url("/pokeball2.png");
+  background-position:
+    0 0,
+    center;
   background-repeat: no-repeat, repeat;
-  background-size: cover, 180px 180px;
+  background-size:
+    cover,
+    180px 180px;
   background-attachment: fixed;
 }
 
@@ -50,11 +58,19 @@ a {
 @media (prefers-color-scheme: dark) {
   .bg-index {
     background:
-      linear-gradient(135deg, rgba(45, 55, 72, 0.9) 0%, rgba(10, 10, 10, 0.95) 50%, rgba(45, 55, 72, 0.9) 100%),
-      url('/pokeball2.png');
-    background-position: 0 0, center;
+      linear-gradient(
+        135deg,
+        rgba(45, 55, 72, 0.9) 0%,
+        rgba(10, 10, 10, 0.95) 50%,
+        rgba(45, 55, 72, 0.9) 100%
+      ), url("/pokeball2.png");
+    background-position:
+      0 0,
+      center;
     background-repeat: no-repeat, repeat;
-    background-size: cover, 180px 180px;
+    background-size:
+      cover,
+      180px 180px;
     background-attachment: fixed;
     opacity: 0.9;
   }

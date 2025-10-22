@@ -1,13 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { useAppDispatch, useAppSelector } from '../store/hooks';
-import { fetchPokemonById } from '../slices/pokemonSlice';
-import ModalPokemon from './ModalPokemon';
-import './PokeCard.css';
+import React, { useEffect, useState } from "react";
+import { fetchPokemonById } from "../slices/pokemonSlice";
+import { useAppDispatch, useAppSelector } from "../store/hooks";
+import ModalPokemon from "./ModalPokemon";
+import "./PokeCard.css";
 
 interface PokeCardProps {
   pokeName: string;
   pokeId: number;
-  pokeDescription?: string;
   pokeAbility: Array<{
     ability: {
       name: string;
@@ -25,31 +24,9 @@ interface PokeCardProps {
   pokeCharac: string;
 }
 
-const typeColors: { [key: string]: string } = {
-  fire: '#F08030',
-  water: '#6890F0',
-  grass: '#78C850',
-  electric: '#F8D030',
-  flying: '#A890F0',
-  bug: '#A8B820',
-  dragon: '#7038F8',
-  dark: '#705848',
-  poison: '#A040A0',
-  fairy: '#EE99AC',
-  fighting: '#C03028',
-  normal: '#A8A878',
-  ground: '#E0C068',
-  ghost: '#705898',
-  ice: '#98D8D8',
-  psychic: '#F85888',
-  rock: '#B8A038',
-  steel: '#B8B8D0',
-};
-
 export default function PokeCard({
   pokeName,
   pokeId,
-  pokeDescription,
   pokeAbility,
   pokePhoto,
   pokeType,
@@ -57,7 +34,7 @@ export default function PokeCard({
   pokeCharac,
 }: PokeCardProps) {
   const dispatch = useAppDispatch();
-  const { currentPokemon, loading } = useAppSelector(state => state.pokemon);
+  const { currentPokemon, loading } = useAppSelector((state) => state.pokemon);
   const [modalOpen, setModalOpen] = useState(false);
   const [pokemonImage, setPokemonImage] = useState<string>(pokePhoto);
 
@@ -65,12 +42,14 @@ export default function PokeCard({
   useEffect(() => {
     const fetchPokemonImage = async () => {
       try {
-        const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokeId}`);
+        const response = await fetch(
+          `https://pokeapi.co/api/v2/pokemon/${pokeId}`,
+        );
         const data = await response.json();
-        setPokemonImage(data.sprites?.front_default || '/pokeball-icon.png');
+        setPokemonImage(data.sprites?.front_default || "/pokeball-icon.png");
       } catch (error) {
-        console.error('Erro ao buscar imagem do Pokémon:', error);
-        setPokemonImage('/pokeball-icon.png');
+        console.error("Erro ao buscar imagem do Pokémon:", error);
+        setPokemonImage("/pokeball-icon.png");
       }
     };
 
@@ -107,26 +86,19 @@ export default function PokeCard({
             alt={pokeName}
             className="poke-card-image"
             onError={(e) => {
-              (e.target as HTMLImageElement).src = '/pokeball-loader.gif';
+              (e.target as HTMLImageElement).src = "/pokeball-loader.gif";
             }}
           />
         </div>
 
         {/* Card Content */}
         <div className="poke-card-body">
-          <div style={{ textAlign: 'center' }}>
-            <h4 className="poke-card-title">
-              {pokeName.toUpperCase()}
-            </h4>
-            <div className="poke-id">
-              Nº {pokeId}
-            </div>
+          <div style={{ textAlign: "center" }}>
+            <h4 className="poke-card-title">{pokeName.toUpperCase()}</h4>
+            <div className="poke-id">Nº {pokeId}</div>
 
             {/* More Info Button */}
-            <button
-              className="more-info-button"
-              onClick={handleOpenModal}
-            >
+            <button className="more-info-button" onClick={handleOpenModal} type="button">
               More Info
             </button>
           </div>
@@ -139,7 +111,10 @@ export default function PokeCard({
         onClose={handleCloseModal}
         pokeName={currentPokemon?.name || pokeName}
         pokeAbility={currentPokemon?.abilities || pokeAbility}
-        pokeType={currentPokemon?.types?.map((t: any) => t.type.name.toUpperCase()) || pokeType}
+        pokeType={
+          currentPokemon?.types?.map((t: any) => t.type.name.toUpperCase()) ||
+          pokeType
+        }
         pokeId={currentPokemon?.id || pokeId}
         pokePhoto={currentPokemon?.sprites?.front_default || pokePhoto}
         pokeStats={currentPokemon?.stats || pokeStats}

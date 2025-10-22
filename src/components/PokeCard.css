@@ -50,14 +50,14 @@
 }
 
 .poke-card-image-container::after {
-  content: '' !important;
+  content: "" !important;
   position: absolute !important;
   top: 20% !important;
   left: 25px !important;
   z-index: -1 !important;
   width: 212px !important;
   height: 212px !important;
-  background-image: url('/pokemon_bg.png') !important;
+  background-image: url("/pokemon_bg.png") !important;
   background-size: cover !important;
   border-radius: inherit !important;
   animation: rotate-anime 3s linear infinite !important;
@@ -79,12 +79,12 @@
   flex-wrap: wrap !important;
   justify-content: center !important;
   gap: 4px !important;
-  margin: 12px 0 !important;
+  margin: 12px 0;
 }
 
 .type-chip {
-  font-weight: bold !important;
-  text-transform: uppercase !important;
+  font-weight: bold;
+  text-transform: uppercase;
   font-size: 0.7rem !important;
   height: 24px !important;
   border-radius: 12px !important;
@@ -92,41 +92,49 @@
   margin: 2px !important;
 }
 
+.type-chip {
+  background: #ff6b35;
+  color: white;
+  border-radius: 12px;
+  padding: 4px 8px;
+  margin: 2px;
+}
+
 .more-info-button {
-  border-color: #14b9ff !important;
-  background-color: #0094e5 !important;
-  box-shadow: 0 0 0.25em 0.03em #0094e5 !important;
-  color: white !important;
-  border-radius: 20px !important;
-  padding: 8px 16px !important;
-  font-size: 0.8rem !important;
-  font-weight: bold !important;
-  text-transform: uppercase !important;
-  letter-spacing: 0.5px !important;
-  margin-top: 8px !important;
-  transition: all 0.2s ease !important;
+  border-color: #14b9ff;
+  background-color: #0094e5;
+  box-shadow: 0 0 0.25em 0.03em #0094e5;
+  color: white;
+  border-radius: 20px;
+  padding: 8px 16px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: 8px;
+  transition: all 0.2s ease;
 }
 
 .more-info-button:hover {
-  background-color: #14b9ff !important;
-  transform: scale(1.05) !important;
-  box-shadow: 0 0 0.5em 0.06em #14b9ff !important;
+  background-color: #14b9ff;
+  transform: scale(1.05);
+  box-shadow: 0 0 0.5em 0.06em #14b9ff;
 }
 
 .pokeball-overlay {
-  position: absolute !important;
-  top: 8px !important;
-  right: 8px !important;
-  z-index: 3 !important;
-  background: rgba(255, 255, 255, 0.1) !important;
-  border-radius: 50% !important;
-  padding: 4px !important;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 3;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  padding: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 .pokeball-icon {
-  width: 32px !important;
-  height: 32px !important;
+  width: 32px;
+  height: 32px;
 }
 
 /* Animation keyframes */
@@ -167,8 +175,6 @@
 }
 
 @media (max-width: 480px) {
-
-
   .poke-card-title {
     font-size: 0.9rem !important;
     line-height: 24px !important;

@@ -1,5 +1,5 @@
-import { configureStore } from '@reduxjs/toolkit';
-import pokemonReducer from '../slices/pokemonSlice';
+import { configureStore } from "@reduxjs/toolkit";
+import pokemonReducer from "../slices/pokemonSlice";
 
 export const store = configureStore({
   reducer: {
@@ -8,7 +8,7 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
-        ignoredActions: ['persist/PERSIST', 'persist/REHYDRATE'],
+        ignoredActions: ["persist/PERSIST", "persist/REHYDRATE"],
       },
     }),
 });

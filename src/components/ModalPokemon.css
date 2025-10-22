@@ -38,7 +38,7 @@
 }
 
 .body {
-  background-image: url('/pokemon_arena__bg_practice__by_dt_fox_d53bfm7-pre.png') !important;
+  background-image: url("/pokemon_arena__bg_practice__by_dt_fox_d53bfm7-pre.png") !important;
   background-repeat: no-repeat !important;
   background-size: cover !important;
   padding: 24px !important;
@@ -221,7 +221,7 @@
 
 @media screen and (max-width: 820px) {
   .body {
-    background-image: url('/pokemon_arena_mobile.jpg') !important;
+    background-image: url("/pokemon_arena_mobile.jpg") !important;
     background-repeat: no-repeat !important;
     background-position: left !important;
     background-size: cover !important;
