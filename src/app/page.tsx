@@ -1,106 +1,86 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
-import {
-  fetchPokemonList,
-  fetchPokemonById,
-  searchPokemon,
-  setSearchQuery,
-  clearCurrentPokemon
-} from '../slices/pokemonSlice';
-import AbilityList from '../components/AbilityList';
-import ModalPokemon from '../components/ModalPokemon';
+import { fetchPokemonList, searchPokemon, clearCurrentPokemon, setCurrentPage, nextPage, previousPage } from '../slices/pokemonSlice';
 import PokeCard from '../components/PokeCard';
 import styles from "./page.module.css";
+import Image from 'next/image';
 
 export default function Home() {
   const dispatch = useAppDispatch();
-  const {
-    pokemonList,
-    currentPokemon,
-    loading,
-    error,
-    searchQuery
-  } = useAppSelector(state => state.pokemon);
+  const { pokemonList, currentPokemon, loading, error, currentPage, totalPages } = useAppSelector(state => state.pokemon);
 
   const [searchInput, setSearchInput] = useState('');
 
   useEffect(() => {
-    dispatch(fetchPokemonList(20));
-  }, [dispatch]);
+    dispatch(fetchPokemonList({ limit: 20, page: currentPage }));
+  }, [dispatch, currentPage]);
 
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault();
+  // Buscar na API quando há texto no input
+  useEffect(() => {
     if (searchInput.trim()) {
       dispatch(searchPokemon(searchInput.trim()));
+    } else {
+      dispatch(clearCurrentPokemon());
     }
+  }, [searchInput, dispatch]);
+
+  // Usar resultados da busca na API ou lista local
+  const displayList = useMemo(() => {
+    if (searchInput.trim()) {
+      // Se a busca na API foi bem-sucedida (currentPokemon existe)
+      if (currentPokemon) {
+        return [{
+          name: currentPokemon.name,
+          url: `https://pokeapi.co/api/v2/pokemon/${currentPokemon.id}/`
+        }];
+      }
+      // Se não encontrou na API (currentPokemon é null), filtrar na lista local
+      return pokemonList.filter((pokemon: any) =>
+        pokemon.name.toLowerCase().includes(searchInput.toLowerCase())
+      );
+    }
+    // Sem busca, mostrar lista completa
+    return pokemonList;
+  }, [pokemonList, searchInput, currentPokemon]);
+
+  const handleSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setSearchInput(value);
   };
 
-  const handlePokemonClick = (pokemonName: string) => {
-    dispatch(searchPokemon(pokemonName));
-  };
-
-  const handleClearSearch = () => {
-    dispatch(clearCurrentPokemon());
-    setSearchInput('');
-    dispatch(setSearchQuery(''));
+  const handlePageChange = (page: number) => {
+    dispatch(setCurrentPage(page));
   };
 
   return (
     <div className={styles.page}>
       <main className={styles.main}>
-        <h1>Pokédex</h1>
+        <Image
+          src="/Pokedex_logo.png"
+          alt="Pokedex Logo"
+          width={200}
+          height={70}
+          className={styles.pokedexLogo}
+          style={{ alignSelf: 'center' }}
+        />
 
-        {/* Search Form */}
-        <form onSubmit={handleSearch} className={styles.searchForm}>
+        {/* Search Input */}
+        <div className={styles.searchForm}>
           <input
             type="text"
             value={searchInput}
-            onChange={(e) => setSearchInput(e.target.value)}
+            onChange={handleSearchInputChange}
             placeholder="Buscar Pokémon por nome..."
             className={styles.searchInput}
           />
-          <button type="submit" className={styles.searchButton}>
-            Buscar
-          </button>
-        </form>
+        </div>
 
         {/* Error Display */}
         {error && (
           <div className={styles.error}>
             {error}
-          </div>
-        )}
-
-        {/* Current Pokemon Display */}
-        {currentPokemon && (
-          <div className={styles.pokemonCard}>
-            <h2>{currentPokemon.name.toUpperCase()}</h2>
-            <img
-              src={currentPokemon.sprites.front_default}
-              alt={currentPokemon.name}
-              className={styles.pokemonImage}
-            />
-            <div className={styles.pokemonTypes}>
-              {currentPokemon.types.map((typeInfo, index) => (
-                <span key={index} className={styles.type}>
-                  {typeInfo.type.name}
-                </span>
-              ))}
-            </div>
-            <div className={styles.pokemonStats}>
-              <h3>Stats:</h3>
-              {currentPokemon.stats.map((statInfo, index) => (
-                <div key={index} className={styles.stat}>
-                  <span className={styles.statName}>{statInfo.stat.name}:</span>
-                  <span className={styles.statValue}>{statInfo.base_stat}</span>
-                </div>
-              ))}
-            </div>
-
-            {/* Componente de Habilidades */}
-            <AbilityList abilities={currentPokemon.abilities} />
           </div>
         )}
 
@@ -113,22 +93,58 @@ export default function Home() {
 
         {/* Pokemon List */}
         <div className={styles.pokemonList}>
-          <h3>Lista de Pokémons</h3>
+          <h3>
+            {searchInput
+              ? `Resultados para "${searchInput}": ${displayList.length}`
+              : `Lista de Pokémons - Página ${currentPage} de ${totalPages} (${pokemonList.length} carregados)`}
+          </h3>
           <div className={styles.pokemonGrid}>
-            {pokemonList.map((pokemon, index) => (
+            {displayList.map((pokemon, index) => (
               <PokeCard
-                key={index}
+                key={`${pokemon.name}-${index}`}
                 pokeName={pokemon.name}
                 pokeId={parseInt(pokemon.url.split('/').filter(Boolean).pop() || '1', 10)}
                 pokeDescription=""
                 pokeAbility={[]}
-                pokePhoto="/Pokedex_logo.png"
+                pokePhoto="/pokeball-icon.png"
                 pokeType={[]}
                 pokeStats={[]}
                 pokeCharac="Um Pokémon misterioso e poderoso!"
               />
             ))}
           </div>
+
+          {/* Mensagem quando não há resultados */}
+          {!loading && searchInput && displayList.length === 0 && (
+            <div style={{textAlign: 'center', padding: '20px', color: '#666'}}>
+              Nenhum Pokémon encontrado com o nome "{searchInput}"
+            </div>
+          )}
+
+          {/* Controles de Paginação (apenas quando não há busca ativa) */}
+          {!searchInput && !loading && totalPages > 1 && (
+            <div className={styles.pagination}>
+              <button
+                onClick={() => handlePageChange(currentPage - 1)}
+                disabled={currentPage <= 1}
+                className={styles.pageButton}
+              >
+                Anterior
+              </button>
+
+              <span className={styles.pageInfo}>
+                Página {currentPage} de {totalPages}
+              </span>
+
+              <button
+                onClick={() => handlePageChange(currentPage + 1)}
+                disabled={currentPage >= totalPages}
+                className={styles.pageButton}
+              >
+                Próxima
+              </button>
+            </div>
+          )}
         </div>
       </main>
     </div>

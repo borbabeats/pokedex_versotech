@@ -67,10 +67,10 @@ export default function PokeCard({
       try {
         const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokeId}`);
         const data = await response.json();
-        setPokemonImage(data.sprites?.front_default || '/Pokedex_logo.png');
+        setPokemonImage(data.sprites?.front_default || '/pokeball-icon.png');
       } catch (error) {
         console.error('Erro ao buscar imagem do Pokémon:', error);
-        setPokemonImage('/Pokedex_logo.png');
+        setPokemonImage('/pokeball-icon.png');
       }
     };
 
@@ -143,7 +143,7 @@ export default function PokeCard({
         pokeId={currentPokemon?.id || pokeId}
         pokePhoto={currentPokemon?.sprites?.front_default || pokePhoto}
         pokeStats={currentPokemon?.stats || pokeStats}
-        pokeCharac={pokeCharac}
+        pokeCharac={currentPokemon?.flavor_text_entries || pokeCharac}
       />
     </>
   );

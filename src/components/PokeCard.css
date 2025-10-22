@@ -1,6 +1,6 @@
 /* PokeCard Styles - Design Específico */
 .poke-card {
-  height: 505px !important;
+  height: 420px !important;
   width: 280px !important;
   border-radius: 20px !important;
   border: 2px solid #1b252f !important;
@@ -53,7 +53,7 @@
   content: '' !important;
   position: absolute !important;
   top: 20% !important;
-  left: -5px !important;
+  left: 25px !important;
   z-index: -1 !important;
   width: 212px !important;
   height: 212px !important;
@@ -71,7 +71,7 @@
   position: relative !important;
   background: transparent !important;
   display: block !important;
-  margin: 0 auto !important;
+  margin: 60px auto 0 !important;
 }
 
 .poke-types {
@@ -152,13 +152,8 @@
   .poke-card-image-container::after {
     width: 180px !important;
     height: 180px !important;
-    top: 15% !important;
-    left: -10px !important;
-  }
-
-  .poke-card-image {
-    width: 160px !important;
-    height: 160px !important;
+    top: 25% !important;
+    left: 50px !important;
   }
 
   .poke-card-title {
@@ -172,26 +167,7 @@
 }
 
 @media (max-width: 480px) {
-  .poke-card {
-    margin: 4px auto !important;
-    min-height: 400px !important;
-  }
 
-  .poke-card-image-container::after {
-    width: 150px !important;
-    height: 150px !important;
-    top: 10% !important;
-    left: -15px !important;
-  }
-
-  .poke-card-image {
-    width: 140px !important;
-    height: 140px !important;
-  }
-
-  .poke-card-body {
-    padding: 12px !important;
-  }
 
   .poke-card-title {
     font-size: 0.9rem !important;

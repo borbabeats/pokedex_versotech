@@ -33,7 +33,7 @@ interface ModalPokemonProps {
       name: string;
     };
   }>;
-  pokeCharac: string;
+  pokeCharac: string | any; // Pode ser string ou objeto com flavor_text_entries
 }
 
 const typeIcons: { [key: string]: string } = {
@@ -75,6 +75,34 @@ export default function ModalPokemon({
   const getPokemonImage = () => {
     const imageUrl = `/pokemonHD/${pokeId}.png`;
     return imageUrl || pokePhoto;
+  };
+
+  // Função para obter a flavor text do pokemon
+  const getFlavorText = () => {
+    // Se pokeCharac for uma string (fallback), retornar null para não exibir nada
+    if (typeof pokeCharac === 'string') {
+      return null;
+    }
+
+    // Se pokeCharac for um objeto com flavor_text_entries
+    if (pokeCharac && typeof pokeCharac === 'object' && pokeCharac.flavor_text_entries) {
+      // Procurar por flavor text em inglês
+      const englishEntry = pokeCharac.flavor_text_entries.find(
+        (entry: any) => entry.language.name === 'en'
+      );
+
+      if (englishEntry) {
+        // Limpar a string removendo quebras de linha e caracteres especiais
+        return englishEntry.flavor_text.replace(/\f/g, ' ').replace(/\n/g, ' ').trim();
+      }
+
+      // Se não encontrar em inglês, usar a primeira disponível
+      if (pokeCharac.flavor_text_entries.length > 0) {
+        return pokeCharac.flavor_text_entries[0].flavor_text.replace(/\f/g, ' ').replace(/\n/g, ' ').trim();
+      }
+    }
+
+    return null;
   };
 
   const getTypeChips = () => {
@@ -215,7 +243,12 @@ export default function ModalPokemon({
               <Box className="poke-comics">
                 A wild {pokeName} appears!...
                 <br />
-                {pokeCharac}
+                {getFlavorText() && (
+                  <>
+                    <br />
+                    {getFlavorText()}
+                  </>
+                )}
               </Box>
             </Box>
 

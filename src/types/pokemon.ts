@@ -24,6 +24,15 @@ export interface Pokemon {
     };
     is_hidden: boolean;
   }>;
+  flavor_text_entries?: Array<{
+    flavor_text: string;
+    language: {
+      name: string;
+    };
+    version: {
+      name: string;
+    };
+  }>;
 }
 
 export interface PokemonListItem {
@@ -41,4 +50,7 @@ export interface PokemonState {
   loading: boolean;
   error: string | null;
   searchQuery: string;
+  offset: number;
+  currentPage: number;
+  totalPages: number;
 }
