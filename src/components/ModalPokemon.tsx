@@ -14,6 +14,7 @@ import AbilityList from "./AbilityList";
 import StatsComplete from "./StatsComplete";
 import "./ModalPokemon.css";
 
+
 interface ModalPokemonProps {
   isOpen: boolean;
   onClose: () => void;

@@ -98,7 +98,11 @@ export default function PokeCard({
             <div className="poke-id">Nº {pokeId}</div>
 
             {/* More Info Button */}
-            <button className="more-info-button" onClick={handleOpenModal} type="button">
+            <button
+              className="more-info-button"
+              onClick={handleOpenModal}
+              type="button"
+            >
               More Info
             </button>
           </div>
