@@ -6,8 +6,6 @@ import PokeCard from "../components/PokeCard";
 import {
   clearCurrentPokemon,
   fetchPokemonList,
-  nextPage,
-  previousPage,
   searchPokemon,
   setCurrentPage,
 } from "../slices/pokemonSlice";
